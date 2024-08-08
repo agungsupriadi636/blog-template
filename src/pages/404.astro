@@ -1,0 +1,27 @@
+---
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import BaseHead from '@components/BaseHead.astro';
+---
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Error Page | 404</title>
+	<BaseHead title="error page" description="page not found" />
+</head>
+<body class="bg-white text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+	<Header />
+	<main class="min-h-dvh flex items-center">
+		<div class="container">
+			<div class="space-y-8">
+				<h1 class="text-5xl font-bold">Error Page 404</h1>
+				<a class="inline-block rounded px-6 py-2 bg-neutral-200 text-neutral-700 dark:bg-neutral-900 dark:text-neutral-50" href="/">Back to Home</a>
+			</div>
+		</div>
+	</main>
+	<Footer />
+	<script>import "preline/dist/preline.js";</script>
+</body>
+</html>
+<script is:inline src="./assets/vendor/preline/preline.js"></script>

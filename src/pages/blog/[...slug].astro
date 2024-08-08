@@ -1,0 +1,49 @@
+---
+import { author } from '../../consts';
+import { type CollectionEntry, getCollection } from 'astro:content';
+import { Image } from "astro:assets";
+import MainLayout from "@layouts/MainLayout.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+
+//import widget
+import WidgetAuthor from "@components/widget/WidgetAuthor.astro";
+import WidgetCategories from "@components/widget/WidgetCategories.astro";
+import WidgetLatestPost from "@components/widget/WidgetLatestPost.astro";
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+<MainLayout>
+	<div class="max-w-5xl mx-auto py-8">
+		<div class="space-y-4">
+			<h1 class="text-2xl font-bold">{post.data.title}</h1>
+			<div class="flex gap-4">
+				<p>Author : {author.name}</p>
+				<p>Categories : {post.data.categories}</p>
+				<p>Publis : <FormattedDate date={post.data.pubDate} /></p>
+			</div>
+			<div class="grayscale">
+				<Image loading="eadger" class="w-full aspect-[4/2] object-cover rounded" src={post.data.heroImage} alt={post.data.title} />
+			</div>
+		</div>
+		<div class="grid lg:grid-cols-3 gap-12 py-8">
+			<article class="lg:col-span-2 prose prose-neutral dark:prose-invert">
+				<Content />
+			</article>
+			<aside class="space-y-8">
+				<WidgetLatestPost />
+				<WidgetAuthor />
+				<WidgetCategories />
+			</aside>
+		</div>
+	</div>
+</MainLayout>

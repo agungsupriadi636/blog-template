@@ -1,0 +1,52 @@
+---
+import MainLayout from "@layouts/MainLayout.astro";
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import { SITE_TITLE, author } from '../../consts';
+//widget
+import WidgetAuthor from "@components/widget/WidgetAuthor.astro";
+import WidgetCategories from "@components/widget/WidgetCategories.astro";
+import WidgetLatestPost from "@components/widget/WidgetLatestPost.astro";
+
+export async function getStaticPaths( ) {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map( post => ({
+    params: { cat: post.data.categories }, props: { post },
+  }));
+}
+const { post } = Astro.props;
+
+const listCat = await getCollection('blog', ({data}) => {
+	return data.categories.toLowerCase() === post.data.categories.toLowerCase() ;
+});
+---
+<MainLayout
+	title={SITE_TITLE}
+	description="categories pages"
+>
+	<div class="container">
+		<div class="grid lg:grid-cols-3 gap-12 py-8">
+			<div class="lg:col-span-2 space-y-8">
+				<h1 class="text-4xl font-bold">Categories : {post.data.categories}</h1>
+				<div class="space-y-8">
+				{listCat.map(cat =>
+					<div class="md:flex gap-4">
+						<div class="basis-1/3 aspect-video grayscale">
+							<Image loading="eadger" class="rounded" src={cat.data.heroImage}alt={cat.data.title} />
+						</div>
+						<div class="basis-2/3 space-y-3">
+							<h2 class="text-xl font-bold"><a href={`/blog/${cat.slug}`}>{cat.data.title}</a></h2>
+							<p>{cat.data.description}</p>
+						</div>
+					</div>
+				)}
+				</div>
+			</div>
+			<div class="space-y-8">
+				<WidgetLatestPost />
+				<WidgetAuthor />
+				<WidgetCategories />
+			</div>
+		</div>
+	</div>
+</MainLayout>

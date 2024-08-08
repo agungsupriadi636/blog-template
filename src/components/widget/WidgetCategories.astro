@@ -1,0 +1,14 @@
+---
+import { blogList } from "../../utils/index";
+import CardWidget from "@components/CardWidget.astro";
+
+console.log(blogList);
+---
+<CardWidget widgetTitle="Categories List">
+	<div class="flex flex-wrap gap-3">
+		{blogList.map(cat => 
+			<a class="px-6 py-2 bg-neutral-200 dark:bg-neutral-900 rounded shadow-md" href={`/categories/${cat.data.categories}`}>{cat.data.categories}</a>
+		)}
+	</div>
+</CardWidget>
+

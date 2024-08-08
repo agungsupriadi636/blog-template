@@ -1,0 +1,64 @@
+---
+import { Image } from "astro:assets";
+
+import MainLayout from "@layouts/MainLayout.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { blogList } from "../utils/index";
+
+//import widget
+import WidgetAuthor from "@components/widget/WidgetAuthor.astro";
+import WidgetCategories from "@components/widget/WidgetCategories.astro";
+---
+<MainLayout
+	title={ SITE_TITLE }
+	description={ SITE_DESCRIPTION }
+>
+<div class="container grid lg:grid-cols-3 gap-12 py-8">
+	<div class="lg:col-span-2">
+	{blogList.slice(0,1).map( blog => 
+		<article class="space-y-4">
+			<div class="grayscale">
+				<Image loading="eadger" class="w-full aspect-video rounded object-cover block" src={blog.data.heroImage} alt={blog.data.title} />
+			</div>
+			<div class="space-y-4">
+				<h2 class="text-4xl font-bold"><a href={`/blog/${blog.slug}`}>{blog.data.title}</a></h2>
+				<div class="space-x-8">
+					<a href={`/categories/${blog.data.categories}`} class="inline-block px-6 py-2 bg-neutral-200 dark:bg-neutral-900 rounded">{blog.data.categories}</a>
+					<FormattedDate date={blog.data.pubDate} />
+				</div>
+				<p class="lg:text-lg">{blog.data.description}</p>
+			</div>
+		</article>
+	)}
+	
+	<div class="mt-12">
+		<h2 class="text-xl font-bold border-b mb-8 pb-4 dark:border-neutral-600">Latest Posts</h2>
+		<div class="space-y-8">
+		{blogList.slice(1,4).map(blog =>
+			<article class="grid lg:grid-cols-3 gap-4">
+				<div class="grayscale lg:order-last">
+					<Image loading="eadger" class="aspect-video object-cover block rounded" src={blog.data.heroImage} alt={blog.data.title} />
+				</div>
+				<div class="lg:col-span-2 space-y-4">
+					<h3 class="text-xl font-bold"><a href={`/blog/${blog.slug}`}>{blog.data.title}</a></h3>
+					<div class="space-x-8">
+						<a href={`/categories/${blog.data.categories}`} class="inline-block px-6 py-2 bg-neutral-200 dark:bg-neutral-900 rounded">{blog.data.categories}</a>
+						<FormattedDate date={blog.data.pubDate} />
+					</div>
+					<p>{blog.data.description}</p>
+				</div>
+			</article>
+		)}
+		<div class="text-center">
+			<a href="/blog" class="inline-block px-6 py-2 bg-neutral-200 dark:bg-neutral-900 shadow-md rounded">See All Post</a>
+		</div>
+		</div>
+	</div>
+	</div>
+	<aside class="space-y-8">
+		<WidgetAuthor />
+		<WidgetCategories />
+	</aside>
+</div>
+</MainLayout>

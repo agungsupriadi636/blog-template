@@ -1,0 +1,9 @@
+---
+const { widgetTitle } = Astro.props;
+---
+<div class="space-y-4">
+	<div class="pb-4 border-b dark:border-neutral-600">
+		<h2 class="text-xl font-semibold">{ widgetTitle }</h2>
+	</div>
+	<slot />
+</div>

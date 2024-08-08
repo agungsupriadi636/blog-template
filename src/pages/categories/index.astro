@@ -1,0 +1,28 @@
+---
+import MainLayout from "@layouts/MainLayout.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import { SITE_TITLE, author} from '../../consts';
+import { blogList } from "../../utils/index";
+import WidgetAuthor from "@components/widget/WidgetAuthor.astro";
+import WidgetLatestPost from "@components/widget/WidgetLatestPost.astro";
+---
+<MainLayout
+	title={`${SITE_TITLE} | categories` }
+	desciption="blog categories list"
+>
+<div class="container grid gap-12 lg:grid-cols-3 py-8">
+		<div class="lg:col-span-2 space-y-8">
+			<h1 class="text-4xl font-bold">Categories List</h1>
+			<div class="flex gap-4 flex-wrap">
+			{blogList.map( post =>
+				<a href={`/categories/${post.data.categories}`} class="h-fit px-6 py-2 ronded bg-neutral-100 dark:bg-neutral-900 rounded"># {post.data.categories}</a>
+			)}
+			</div>
+		</div>
+		<aside class="space-y-8">
+			<WidgetLatestPost />
+			<WidgetAuthor />
+		</aside>
+	</div>
+</MainLayout>
+
