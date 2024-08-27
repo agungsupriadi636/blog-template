@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { MainLayout, FormattedDate, WidgetAuthor, WidgetCategories } from "@utils/index";
+---
+<MainLayout
+	title={ SITE_TITLE }
+	description={ SITE_DESCRIPTION }
+>
+<div class="container grid lg:grid-cols-3 gap-12 py-8">
+	<div class="lg:col-span-2">
+		<div class="w-full">
+			<div class="px-2 py-1 border rounded">
+				<input class="block w-full" type="search" id="search" placeholder="Cari blog..." />
+			</div>
+			<ul id="results"></ul>
+		</div>
+	</div>
+	<aside class="space-y-8">
+		<WidgetAuthor />
+		<WidgetCategories />
+	</aside>
+</div>
+<script>
+    import Fuse from 'fuse.js';
+    import DOMPurify from 'dompurify';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Ambil data dari endpoint
+      const response = await fetch('/api/posts.json');
+      const posts = await response.json();
+
+      const fuse = new Fuse(posts, {
+        keys: ['title', 'description'],
+        includeScore: true,
+      });
+
+      const searchInput = document.getElementById('search');
+      const resultsContainer = document.getElementById('results');
+
+      searchInput.addEventListener('input', (event) => {
+        const query =  DOMPurify.sanitize(event.target.value);
+        const results = query ? fuse.search(query) : [];
+
+        resultsContainer.innerHTML = results
+          .map(result => `<li><a href="/posts/${result.item.id}">${result.item.title}</a></li>`)
+          .join('');
+      });
+    });
+  </script>
+</MainLayout>

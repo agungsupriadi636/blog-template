@@ -1,10 +1,6 @@
 ---
-import MainLayout from "@layouts/MainLayout.astro";
-import FormattedDate from "@components/FormattedDate.astro";
 import { SITE_TITLE, author} from '../../consts';
-import { blogList } from "../../utils/index";
-import WidgetAuthor from "@components/widget/WidgetAuthor.astro";
-import WidgetLatestPost from "@components/widget/WidgetLatestPost.astro";
+import { blogList, WidgetAuthor, WidgetLatestPost, FormattedDate, MainLayout} from "@utils/index";
 ---
 <MainLayout
 	title={`${SITE_TITLE} | categories` }

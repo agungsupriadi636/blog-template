@@ -1,0 +1,55 @@
+---
+---
+<div id="searchModal" class="hidden w-full h-full bg-black/50 text-neutral-500 fixed top-0 left-0 z-50">
+	<div class="max-w-2xl bg-white rounded-md mt-16 md:mt-24 mx-2 px-2 md:mx-auto">
+		<div class="bg-white rounded-md w-full md:px-4 py-4 rounded flex gap-1 items-center">
+			<div>
+				<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z"></path></svg>
+			</div>
+			<input type="search" name="search" id="search-input" placeholder="search ..." class="outline-none grow"  autocomplete="off"/>
+		</div>
+		<div class="px-2 h-fit pb-2 overflow-y-hidden">
+			<ul id="readSearch" class="space-y-2">
+			</ul>
+		</div>
+	</div>
+</div>
+
+<script>
+	import Fuse from 'fuse.js';
+    import DOMPurify from 'dompurify';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Ambil data dari endpoint
+      const response = await fetch('/api/posts.json');
+      const posts = await response.json();
+
+      const fuse = new Fuse(posts, {
+        keys: ['title', 'description'],
+        includeScore: true,
+      });
+
+      const searchInput = document.getElementById('search-input');
+      const resultsContainer = document.getElementById('readSearch');
+
+      searchInput.addEventListener('input', (event) => {
+        const query =  DOMPurify.sanitize(event.target.value);
+        const results = query ? fuse.search(query) : [];
+		searchInput.setAttribute("value", query);
+
+        console.log(results)
+        resultsContainer.innerHTML =
+          results.map(result => `
+            <li class="group">
+                <div class="px-4 py-2 space-y-1 group-hover:bg-black rounded-md group-hover:text-gray-400 transition-all">
+                    <h2 class="group-hover:text-gray-200 text-gray-700 text-lg font-semibold">
+                      <a href="/blog/${result.item.slug}">${result.item.title}</a>
+                    </h2>
+                    <p>${result.item.description}</p>
+                </div>
+            </li>
+            `)
+          .join('');
+      });
+    });
+</script>

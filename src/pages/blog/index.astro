@@ -1,15 +1,7 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { Image } from "astro:assets";
-
-import { blogList } from "../../utils/index";
-
-import MainLayout from "@layouts/MainLayout.astro";
-import FormattedDate from "@components/FormattedDate.astro";
-
-//import widget
-import WidgetAuthor from "@components/widget/WidgetAuthor.astro";
-import WidgetCategories from "@components/widget/WidgetCategories.astro";
+import { blogList, MainLayout, FormattedDate, WidgetAuthor, WidgetCategories } from "@utils/index";
 ---
 <MainLayout
 	title={`${SITE_TITLE} | blog` }

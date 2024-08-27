@@ -2,13 +2,8 @@
 import { author } from '../../consts';
 import { type CollectionEntry, getCollection } from 'astro:content';
 import { Image } from "astro:assets";
-import MainLayout from "@layouts/MainLayout.astro";
-import FormattedDate from "@components/FormattedDate.astro";
 
-//import widget
-import WidgetAuthor from "@components/widget/WidgetAuthor.astro";
-import WidgetCategories from "@components/widget/WidgetCategories.astro";
-import WidgetLatestPost from "@components/widget/WidgetLatestPost.astro";
+import { blogList, MainLayout, FormattedDate, WidgetAuthor, WidgetCategories, WidgetLatestPost } from "@utils/index";
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -19,17 +14,27 @@ export async function getStaticPaths() {
 }
 type Props = CollectionEntry<'blog'>;
 
-const post = Astro.props;
-const { Content } = await post.render();
+const post  = Astro.props;
+const { Content, remarkPluginFrontmatter } = await post.render();
 ---
 <MainLayout>
 	<div class="max-w-5xl mx-auto py-8">
 		<div class="space-y-4">
 			<h1 class="text-2xl font-bold">{post.data.title}</h1>
 			<div class="flex gap-4">
-				<p>Author : {author.name}</p>
-				<p>Categories : {post.data.categories}</p>
-				<p>Publis : <FormattedDate date={post.data.pubDate} /></p>
+				<div class="flex gap-1">
+					<span><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 22H18V20C18 18.3431 16.6569 17 15 17H9C7.34315 17 6 18.3431 6 20V22H4V20C4 17.2386 6.23858 15 9 15H15C17.7614 15 20 17.2386 20 20V22ZM12 13C8.68629 13 6 10.3137 6 7C6 3.68629 8.68629 1 12 1C15.3137 1 18 3.68629 18 7C18 10.3137 15.3137 13 12 13ZM12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"></path></svg></span> <span>{author.name}</span>
+				</div>
+				<div class="flex gap-1">
+					<span><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21H14C14.5523 21 15 20.5523 15 20V10.6973L17.0215 20.2076C17.1363 20.7479 17.6673 21.0927 18.2075 20.9779L21.142 20.3541C21.6822 20.2393 22.027 19.7083 21.9122 19.1681L19.0015 5.47402C18.8866 4.9338 18.3556 4.58896 17.8154 4.70378L15 5.30221V5C15 4.44772 14.5523 4 14 4H9C9 3.44772 8.55228 3 8 3H4ZM9 6H13V14H9V6ZM13 16V19H9V16H13ZM7 17V19H5V17H7ZM18.7699 18.8137L18.3541 16.8577L19.3323 16.6498L19.748 18.6058L18.7699 18.8137Z"></path></svg></span> <span> {post.data.categories}</span>
+				</div>
+				<div class="flex gap-1">
+					<span><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 11H4V19H20V11ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z"></path></svg></span> <FormattedDate date={post.data.pubDate} />
+				</div>
+				<div class="flex gap-1">
+					<span><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0003 3C17.3924 3 21.8784 6.87976 22.8189 12C21.8784 17.1202 17.3924 21 12.0003 21C6.60812 21 2.12215 17.1202 1.18164 12C2.12215 6.87976 6.60812 3 12.0003 3ZM12.0003 19C16.2359 19 19.8603 16.052 20.7777 12C19.8603 7.94803 16.2359 5 12.0003 5C7.7646 5 4.14022 7.94803 3.22278 12C4.14022 16.052 7.7646 19 12.0003 19ZM12.0003 16.5C9.51498 16.5 7.50026 14.4853 7.50026 12C7.50026 9.51472 9.51498 7.5 12.0003 7.5C14.4855 7.5 16.5003 9.51472 16.5003 12C16.5003 14.4853 14.4855 16.5 12.0003 16.5ZM12.0003 14.5C13.381 14.5 14.5003 13.3807 14.5003 12C14.5003 10.6193 13.381 9.5 12.0003 9.5C10.6196 9.5 9.50026 10.6193 9.50026 12C9.50026 13.3807 10.6196 14.5 12.0003 14.5Z"></path></svg></span>
+					<span>{remarkPluginFrontmatter.minutesRead}</span>
+				</div>
 			</div>
 			<div class="grayscale">
 				<Image loading="eadger" class="w-full aspect-[4/2] object-cover rounded" src={post.data.heroImage} alt={post.data.title} />

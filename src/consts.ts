@@ -14,6 +14,6 @@ export const navLinks = [
 
 // author profile
 export const author = {
-	name:"admin",
+	name:"Astronout",
 	description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, animi aspernatur sapiente ullam culpa corporis."
 }
