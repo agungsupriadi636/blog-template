@@ -16,7 +16,7 @@ import { SITE_TITLE, navLinks } from '../consts';
         <svg class="hs-collapse-open:block hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         <span class="sr-only">Toggle</span>
       </button>
-      <div class="border border-gray-50">
+      <div>
         <button type="button" class="hs-dark-mode-active:hidden block hs-dark-mode font-medium text-gray-800 rounded-full hover:bg-gray-200 focus:outline-none focus:bg-gray-200 dark:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800" data-hs-theme-click-value="dark">
           <span class="group inline-flex shrink-0 justify-center items-center size-9">
             <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -53,46 +53,3 @@ import { SITE_TITLE, navLinks } from '../consts';
     </div>
   </nav>
 </header>
-
-<script>
-// This code should be added to
-// It's used to prevent page load glitches.
-
-const html = document.querySelector('html');
-const isLightOrAuto = localStorage.getItem('hs_theme') === 'light' || (localStorage.getItem('hs_theme') === 'auto' && !window.matchMedia('(prefers-color-scheme: dark)').matches);
-const isDarkOrAuto = localStorage.getItem('hs_theme') === 'dark' || (localStorage.getItem('hs_theme') === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-if (isLightOrAuto && html.classList.contains('dark')) html.classList.remove('dark');
-else if (isDarkOrAuto && html.classList.contains('light')) html.classList.remove('light');
-else if (isDarkOrAuto && !html.classList.contains('dark')) html.classList.add('dark');
-else if (isLightOrAuto && !html.classList.contains('light')) html.classList.add('light');
-
-// Get the modal
-const searchModal = document.getElementById("searchModal");
-
-// Get the button that opens the modal
-const btnSearch = document.getElementById("btnSearch");
-
-// Get the <span> element that closes the modal
-// var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-btnSearch.addEventListener('click' , ()=>{
-  searchModal.classList.toggle('hidden');
-  document.body.classList.toggle('overflow-hidden');
-})
-
-// When the user clicks on <span> (x), close the modal
-// span.onclick = function() {
-//   modal.style.display = "none";
-// }
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == searchModal ) {
-    searchModal.classList.toggle('hidden');
-    document.body.classList.toggle('overflow-hidden');
-  }
-}
-
-</script>
