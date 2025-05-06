@@ -1,14 +1,6 @@
 {
   "name": "blog",
-  "type": "module",
   "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
   "dependencies": {
     "@astrojs/mdx": "4.2.6",
     "@astrojs/rss": "4.0.11",
@@ -22,7 +14,15 @@
     "remark-toc": "^9.0.0",
     "tailwindcss": "^4.1.5"
   },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "type": "module",
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.13"
+    "@tailwindcss/typography": "^0.5.16"
   }
 }
