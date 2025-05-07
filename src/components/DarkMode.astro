@@ -3,7 +3,56 @@ import { Icon } from "astro-icon/components";
 ---
 
 <button
+    id="dark-mode"
     class="fixed right-4 bottom-4 lg:static p-2 rounded-full bg-blue-700 text-white"
 >
-    <Icon name="sun" size={18} />
+    <Icon class="icon" name="moon" size={18} />
 </button>
+
+<script is:inline>
+    (function () {
+        const toggle = document.getElementById("dark-mode");
+        const html = document.documentElement;
+        const icon = document.querySelector(".icon");
+
+        // Cek preferensi sistem dan localStorage
+        const systemPrefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+        ).matches;
+        const userPrefersDark = localStorage.getItem("darkMode") === "true";
+        const initialMode =
+            userPrefersDark ||
+            (localStorage.getItem("darkMode") === null && systemPrefersDark);
+
+        // Set mode awal
+        if (initialMode) {
+            html.classList.add("dark");
+            icon.setAttribute("data-icon", "sun");
+        }
+
+        // Toggle handler
+        toggle.addEventListener("click", () => {
+            const isDark = html.classList.toggle("dark");
+            localStorage.setItem("darkMode", isDark);
+            if (isDark) {
+                icon.setAttribute("data-icon", "sun");
+            } else {
+                icon.setAttribute("data-icon", "moon");
+            }
+        });
+
+        // Update jika preferensi sistem berubah
+        window
+            .matchMedia("(prefers-color-scheme: dark)")
+            .addEventListener("change", (e) => {
+                if (localStorage.getItem("darkMode")) return;
+                const isDark = e.matches;
+                html.classList.toggle("dark", isDark);
+                if (isDark) {
+                    icon.setAttribute("data-icon", "sun");
+                } else {
+                    icon.setAttribute("data-icon", "moon");
+                }
+            });
+    })();
+</script>
