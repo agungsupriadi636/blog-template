@@ -5,34 +5,120 @@ import { SITE_TITLE, navLinks } from "../consts";
 import DarkMode from "./DarkMode.astro";
 
 import { Icon } from "astro-icon/components";
+
+const sosmed = [
+    { name: "ig", link: "/" },
+    { name: "fb", link: "/" },
+    { name: "in", link: "/" },
+    { name: "tw", link: "/" },
+];
 ---
 
-<header class="py-4 bg-red-500">
-  <div
-    class="mx-auto px-6 lg:px-0 max-w-5xl bg-green-500 h-5 flex justify-between items-center"
-  >
-    <div class="flex gap-2 items-center">
-      <button class="hidden">
-        <Icon name="menu" />
-      </button>
-      <div class="flex gap-4 items-center">
-        <a href="/" class="text-2xl font-bold">AsBlog</a>
+<header class="py-8 sticky top-0 z-50 bg-white shadow">
+    <!-- <div class="bg-blue-700 py-3">
+        <div
+            class="max-w-5xl mx-auto px-6 lg:px-0 flex justify-between items-center"
+        >
+            <div class="flex gap-2 items-center">
+                {
+                    sosmed.map((s) => (
+                        <a
+                            href={s.link}
+                            class="p-2 rounded-full bg-yellow-300 text-gray-700 hover:bg-red-500 hover:text-white transition-all shadow"
+                        >
+                            <Icon name={s.name} size={14} />
+                            <span class="sr-only">{s.name}</span>
+                        </a>
+                    ))
+                }
+            </div>
 
-        <nav class="text-md font-semi-bold">
-          {
-            navLinks.map((nav) => (
-              <HeaderLink href={nav.url}>{nav.label}</HeaderLink>
-            ))
-          }
-        </nav>
-      </div>
-    </div>
+            <div>
+                <time class="text-white" datetime={Date()}
+                    >{
+                        new Date().toLocaleDateString("id-ID", {
+                            weekday: "long",
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                        })
+                    }</time
+                >
+            </div>
+        </div>
+    </div> -->
+    <div
+        class="mx-auto px-6 lg:px-0 max-w-5xl h-5 flex justify-between items-center"
+    >
+        <button id="button-menu" class="block lg:hidden">
+            <Icon name="menu" size={20} />
+        </button>
 
-    <div class="space-x-4">
-      <DarkMode />
-      <button class="p-2 bg-red-500 rounded-full hover:bg-red-600">
-        <Icon name="search" size={18} />
-      </button>
+        <div class="flex gap-8 items-center">
+            <a href="/" class="text-2xl font-bold">AstroBlog</a>
+
+            <nav
+                class="hidden lg:flex items-center gap-8 texxt-md font-semi-bold"
+            >
+                {
+                    navLinks.map((nav) => (
+                        <HeaderLink class="hover:text-blue-700" href={nav.url}>
+                            {nav.label}
+                        </HeaderLink>
+                    ))
+                }
+            </nav>
+        </div>
+
+        <div class="space-x-2">
+            <DarkMode />
+            <button class="p-2 rounded-full bg-blue-700 text-white">
+                <Icon name="search" size={18} />
+            </button>
+        </div>
     </div>
-  </div>
 </header>
+
+<!-- mobile menu -->
+<div
+    id="mobile-menu"
+    class="translate-x-full lg:hidden duration-300 transition-all fixed size-full top-0 bg-white insert-0 z-[99]"
+>
+    <div class="max-w-md p-6 h-full">
+        <div>
+            <button
+                id="button-close"
+                class="inline-block ms-auto p-1 rounded-sm border"
+            >
+                <Icon name="close" class="text-black" size={20} />
+            </button>
+        </div>
+
+        <div class="mt-8">
+            <nav class="flex flex-col gap-6">
+                {
+                    navLinks.map((n) => (
+                        <HeaderLink class="hover:text-blue-700" href={n.url}>
+                            {n.label}
+                        </HeaderLink>
+                    ))
+                }
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script is:inline>
+    const menu = document.getElementById("mobile-menu");
+    const open = document.getElementById("button-menu");
+
+    open.addEventListener("click", () => {
+        menu.classList.remove("translate-x-full");
+    });
+
+    const close = document.getElementById("button-close");
+
+    close.addEventListener("click", () => {
+        menu.classList.add("translate-x-full");
+    });
+</script>
