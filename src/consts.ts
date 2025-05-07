@@ -6,14 +6,14 @@ export const SITE_DESCRIPTION = 'Welcome to my website!';
 
 //nav link header
 export const navLinks = [
-	{label: 'Home' , url: '/'},
-	{label: 'Blog' , url: '/blog'},
-	{label: 'Categories' , url: '/categories'},
-	{label: 'Contact' , url: '/contact'},
+	{ label: 'Home', url: '/' },
+	{ label: 'Categories', url: '/categories' },
+	{ label: 'Tags', url: '/tags' },
+	{ label: 'Contact', url: '/contact' },
 ]
 
 // author profile
 export const author = {
-	name:"Astronout",
-	description:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, animi aspernatur sapiente ullam culpa corporis."
+	name: "Astronout",
+	description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, animi aspernatur sapiente ullam culpa corporis."
 }
