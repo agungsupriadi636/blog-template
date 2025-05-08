@@ -1,0 +1,37 @@
+---
+import { Image } from "astro:assets";
+import { FormattedDate } from "@utils/index";
+import { Icon } from "astro-icon/components";
+
+const { post, index } = Astro.props;
+---
+
+<article class="flex gap-4">
+    <a href={`/blog/${post.id}`} class="basis-2/5 aspect-[4/3]">
+        <Image
+            loading={index < 3 ? "eager" : "lazy"}
+            class="size-full aspect-video rounded object-cover block"
+            src={post.data.heroImage}
+            alt={post.data.title}
+        />
+    </a>
+    <div class="basis-3/5 space-y-2">
+        <h2 class="text-lg font-bold">
+            <a
+                class="bg-[length:0_2px] bg-gradient-to-r from-blue-700 to-blue-700 dark:bg-[linear-gradient(white,white)] bg-no-repeat bg-bottom-left transition-all duration-300 hover:bg-[length:100%_2px]"
+                href={`/blog/${post.id}`}>{post.data.title}</a
+            >
+        </h2>
+        <div class="flex items-center gap-2 text-sm">
+            <a
+                href={`/categories/${post.data.categories}`}
+                class="flex items-center"
+            >
+                <Icon name="categories" size={14} />
+                <span>{post.data.categories}</span>
+            </a>
+            <FormattedDate date={post.data.pubDate} />
+        </div>
+        <p class="text-sm">{post.data.description}</p>
+    </div>
+</article>
