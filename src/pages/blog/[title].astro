@@ -1,0 +1,81 @@
+---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import BreadCrumb from "@components/BreadCrumb.astro";
+
+import { MainLayout, FormattedDate } from "@utils/index";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog");
+	return posts.map((post) => ({
+		params: { title: post.data.title },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+---
+
+<MainLayout title={post.data.title} description={post.data.description}>
+	<article>
+		<header class="mb-4 space-y-4">
+			<BreadCrumb
+				categories={post.data.categories}
+				title={post.data.title}
+			/>
+			<h1 class="text-3xl font-bold">{post.data.title}</h1>
+			<p>{post.data.description}</p>
+			<div class="flex gap-4 flex-wrap text-[14px]">
+				<span class="flex items-center gap-1"
+					><Icon name="user" size={13} />{post.data.author}</span
+				>
+				<span class="flex items-center gap-1"
+					><Icon name="categories" size={13} />{
+						post.data.categories
+					}</span
+				>
+				<span class="flex items-center gap-1"
+					><Icon name="time" size={13} /><FormattedDate
+						date={post.data.pubDate}
+					/></span
+				>
+				<span class="flex items-center gap-1"
+					><Icon name="eye" size={13} />{
+						remarkPluginFrontmatter.minutesRead
+					}</span
+				>
+			</div>
+			<figure>
+				<Image
+					class="w-full aspect-[4/2] object-cover rounded-lg shadow-xl"
+					src={post.data.heroImage}
+					alt={post.data.title}
+					loading="eager"
+				/>
+				<figcaption class="mx-auto mt-4 text-center text-sm">
+					{post.data.title}
+				</figcaption>
+			</figure>
+		</header>
+		<div class="prose">
+			<Content />
+		</div>
+		<div class="flex gap-2 items-center mt-8">
+			<p><b>Tags :</b></p>
+			<div class="flex gap-2 flex-wrap items-center">
+				{
+					post.data.tags?.map((tag) => (
+						<a
+							class="px-3 py-1 bg-gray-100 rounded-sm text-sm"
+							href={`/blog/tags/${tag}`}
+						>
+							# {tag}
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</article>
+</MainLayout>

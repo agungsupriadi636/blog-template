@@ -15,20 +15,25 @@ import WidgetComponent from "@components/WidgetComponent.astro";
 
 	<!-- after main component -->
 	<div slot="after-main" class="mt-8">
-		<WidgetComponent title="Post Terbaru">
-			<div class="grid lg:grid-cols-4 gap-4 mt-8">
+		<WidgetComponent title="Post Populer">
+			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
 				{
 					blogList.map((post) => (
-						<article>
-							<Image
-								src={post.data.heroImage}
-								alt={post.data.title}
-								class="rounded-sm"
-							/>
+						<article class="block">
+							<a
+								href={post.data.title}
+								class="w-full inline-block aspect-video rounded-lg overflow-hidden"
+							>
+								<Image
+									src={post.data.heroImage}
+									alt={post.data.title}
+									class="size-full block object-cover hover:scale-125 transition-all duration-300"
+								/>
+							</a>
 							<div class="mt-2">
 								<h3>
 									<a
-										href={`/blog/${post.id}`}
+										href={`/blog/${post.data.title}`}
 										class="bg-[length:0_2px] bg-gradient-to-r from-blue-700 to-blue-700 dark:bg-[linear-gradient(white,white)] bg-no-repeat bg-bottom-left transition-all duration-300 hover:bg-[length:100%_2px]"
 									>
 										{post.data.title}

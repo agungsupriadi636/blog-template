@@ -1,9 +1,10 @@
 ---
-title: 'Markdown Style Guide'
-description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
+title: '10 Tempat Wisata Alam Tersembunyi di Indonesia yang Wajib Dikunjungi'
+description: 'Indonesia tak hanya tentang Bali atau Raja Ampat. Masih banyak destinasi alam tersembunyi yang menawarkan keindahan luar biasa dan belum banyak dijamah wisatawan. Temukan 10 surga tersembunyi yang layak masuk dalam daftar perjalanan Anda berikutnya.'
 pubDate: 'Jul 01 2022'
-heroImage: '@images/blog-placeholder-1.jpg'
-categories: 'Structur'
+heroImage: '@data/blog/post2/labuhan_bajo.webp'
+categories: 'wisata'
+tags: ["liburan", "wisata", "alam"]
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
