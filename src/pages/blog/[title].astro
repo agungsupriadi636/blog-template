@@ -3,18 +3,24 @@ import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import BreadCrumb from "@components/BreadCrumb.astro";
+import { blogList } from "@utils/index";
 
 import { MainLayout, FormattedDate } from "@utils/index";
+
+const { post, currentPost } = Astro.props;
 
 export async function getStaticPaths() {
 	const posts = await getCollection("blog");
 	return posts.map((post) => ({
 		params: { title: post.data.title },
-		props: { post },
+		props: { post, currentPost: post.id },
 	}));
 }
 
-const { post } = Astro.props;
+const currentIndex = blogList.findIndex((post) => post.id === currentPost);
+const prevPost = blogList[currentIndex + 1];
+const nextPost = blogList[currentIndex - 1];
+
 const { Content, remarkPluginFrontmatter } = await render(post);
 
 const pageUrl = Astro.url.href;
@@ -119,4 +125,22 @@ const shares = [
 			}
 		</ul>
 	</div>
+
+	<nav class="flex justify-between items-center mt-8">
+		{
+			prevPost ? (
+				<a class="line-clamp-2" href={`/blog/${prevPost.data.title}`}>
+					&larr; {prevPost.data.title}
+				</a>
+			) : null
+		}
+
+		{
+			nextPost ? (
+				<a class="line-clamp-2" href={`/blog/${nextPost.data.title}`}>
+					{nextPost.data.title} &rarr;
+				</a>
+			) : null
+		}
+	</nav>
 </MainLayout>
