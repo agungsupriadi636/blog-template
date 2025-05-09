@@ -16,6 +16,30 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(post);
+
+const pageUrl = Astro.url.href;
+const pageTitle = post.data.title;
+const encodedUrl = encodeURIComponent(pageUrl);
+const encodedTitle = encodeURIComponent(pageTitle);
+
+const shares = [
+	{
+		sosmed: "fb",
+		link: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+	},
+	{
+		sosmed: "wa",
+		link: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`,
+	},
+	{
+		sosmed: "tw",
+		link: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+	},
+	{
+		sosmed: "in",
+		link: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+	},
+];
 ---
 
 <MainLayout title={post.data.title} description={post.data.description}>
@@ -59,7 +83,9 @@ const { Content, remarkPluginFrontmatter } = await render(post);
 				</figcaption>
 			</figure>
 		</header>
-		<div class="prose">
+		<div
+			class="prose prose-p:text-neutral-700 dark:prose-p:text-neutral-300 prose-a:{utility}"
+		>
 			<Content />
 		</div>
 		<div class="flex gap-2 items-center mt-8">
@@ -68,7 +94,7 @@ const { Content, remarkPluginFrontmatter } = await render(post);
 				{
 					post.data.tags?.map((tag) => (
 						<a
-							class="px-3 py-1 bg-gray-100 rounded-sm text-sm"
+							class="px-3 py-1 bg-gray-100 rounded-sm text-sm hover:bg-blue-700 hover:text-white transitio-all"
 							href={`/blog/tags/${tag}`}
 						>
 							# {tag}
@@ -78,4 +104,19 @@ const { Content, remarkPluginFrontmatter } = await render(post);
 			</div>
 		</div>
 	</article>
+
+	<div class="flex items-center gap-2 mt-8">
+		<span class="text-sm"><b>Share :</b></span>
+		<ul class="flex gap-2 items-center">
+			{
+				shares.map((share) => (
+					<li class=" p-2 rounded-full bg-blue-700 text-white hover:bg-blue-800 transition-all">
+						<a href={share.link} target="_blank">
+							<Icon name={share.sosmed} />
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</div>
 </MainLayout>
