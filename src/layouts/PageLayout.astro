@@ -1,0 +1,87 @@
+---
+import { Icon } from "astro-icon/components";
+import BreadCrumb from "@components/BreadCrumb.astro";
+import { MainLayout } from "@utils/index";
+
+const { frontmatter } = Astro.props;
+const { minutesRead } = Astro.props.frontmatter;
+
+//untuk share link
+const pageUrl = Astro.url.href;
+const pageTitle = frontmatter.title;
+const encodedUrl = encodeURIComponent(pageUrl);
+const encodedTitle = encodeURIComponent(pageTitle);
+
+const shares = [
+    {
+        sosmed: "fb",
+        link: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+    },
+    {
+        sosmed: "wa",
+        link: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`,
+    },
+    {
+        sosmed: "tw",
+        link: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+    },
+    {
+        sosmed: "in",
+        link: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+    },
+];
+---
+
+<MainLayout title={frontmatter.title} description={frontmatter.title}>
+    <article>
+        <header class="mb-4 space-y-4">
+            <BreadCrumb title={frontmatter.title} />
+            <h1 class="text-3xl font-bold">{frontmatter.title}</h1>
+            <div class="flex gap-4 flex-wrap text-[14px]">
+                <span class="flex items-center gap-1"
+                    ><Icon name="user" size={13} />{frontmatter.author}</span
+                >
+                <span class="flex items-center gap-1"
+                    ><Icon name="time" size={13} />
+                    <time datetime=""
+                        >{
+                            new Date(frontmatter.pubDate).toLocaleDateString(
+                                "en-us",
+                                {
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric",
+                                },
+                            )
+                        }</time
+                    >
+                </span>
+                <span class="flex items-center gap-1"
+                    ><Icon name="eye" size={13} />{minutesRead}</span
+                >
+            </div>
+        </header>
+        <div
+            class="prose prose-p:text-neutral-700 dark:prose-p:text-neutral-300 prose-a:{utility}"
+        >
+            <slot />
+        </div>
+    </article>
+
+    {/** share link */}
+    <div class="flex items-center gap-2 mt-8">
+        <span class="text-sm"><b>Share :</b></span>
+        <ul class="flex gap-2 items-center">
+            {
+                shares.map((share) => (
+                    <li class=" p-2 rounded-full bg-blue-700 text-white hover:bg-blue-800 transition-all">
+                        <a href={share.link} target="_blank">
+                            <Icon name={share.sosmed} />
+                            <span class="sr-only">{share.sosmed}</span>
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</MainLayout>

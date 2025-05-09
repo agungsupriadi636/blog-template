@@ -7,8 +7,7 @@ export const SITE_DESCRIPTION = 'Welcome to my website!';
 //nav link header
 export const navLinks = [
 	{ label: 'Home', url: '/' },
-	{ label: 'Categories', url: '/categories' },
-	{ label: 'Tags', url: '/tags' },
+	{ label: 'About', url: '/about' },
 	{ label: 'Contact', url: '/contact' },
 ]
 

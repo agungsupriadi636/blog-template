@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import { SITE_TITLE } from "../../consts";
+import CardPost from "@components/CardPost.astro";
+
+import { MainLayout, blogList } from "@utils/index";
+
+export async function getStaticPaths() {
+	const blogEntries = await getCollection("blog");
+	return blogEntries.map((post) => ({
+		params: { cat: post.data.categories },
+		props: { post },
+	}));
+}
+const { post } = Astro.props;
+
+const lisCat = blogList.filter(
+	(blog) => blog.data.categories === post.data.categories,
+);
+---
+
+<MainLayout title={SITE_TITLE} description="categories pages">
+	<h1 class="text-lg">
+		Categories : {post.data.categories}
+	</h1>
+
+	<div class="mt-6">
+		{lisCat.map((cat) => <CardPost post={cat} />)}
+	</div>
+</MainLayout>

@@ -26,23 +26,27 @@ const { categories, title } = Astro.props;
                 Home
             </a>
         </li>
-        <li>
-            <div class="flex items-center">
-                <Icon name="arrow" />
-                <a
-                    href="#"
-                    class="ms-1 text-xs font-medium hover:text-blue-700 md:ms-2"
-                    >{categories}</a
-                >
-            </div>
-        </li>
+        {
+            categories && (
+                <li>
+                    <div class="flex items-center">
+                        <Icon name="arrow" />
+                        <a
+                            href={`/category/${categories}`}
+                            class="ms-1 text-xs font-medium hover:text-blue-700 md:ms-2"
+                        >
+                            {categories}
+                        </a>
+                    </div>
+                </li>
+            )
+        }
         <li aria-current="page">
             <div class="flex items-center">
                 <span class="">
                     <Icon name="arrow" />
                 </span>
-                <span
-                    class="ms-1 text-xs font-medium md:ms-2 line-clamp-1 hover:text-blue-700 transition-all"
+                <span class="ms-1 text-xs font-medium md:ms-2 line-clamp-1"
                     >{title}</span
                 >
             </div>

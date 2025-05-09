@@ -1,0 +1,42 @@
+---
+import { getCollection } from "astro:content";
+import { SITE_TITLE } from "../../consts";
+import CardPost from "@components/CardPost.astro";
+import { MainLayout, blogList } from "@utils/index";
+
+export async function getStaticPaths() {
+    const blogEntries = await getCollection("blog");
+
+    const tagSet = new Set();
+
+    // Ambil semua tag dari setiap post dan masukkan ke dalam Set untuk menghindari duplikat
+    blogEntries.forEach((post) => {
+        post.data.tags?.forEach((tag) => tagSet.add(tag.toLowerCase()));
+    });
+
+    // Kembalikan path untuk setiap tag
+    return Array.from(tagSet).map((tag) => ({
+        params: { tag },
+    }));
+}
+
+// Ambil data berdasarkan tag dari URL params
+const { tag } = Astro.params;
+
+// Filter postingan berdasarkan tag
+const filteredPosts = blogList.filter((post) =>
+    (post.data.tags || []).map((t) => t.toLowerCase()).includes(tag as string),
+);
+---
+
+<MainLayout title={SITE_TITLE} description="categories pages">
+    <h1 class="text-lg">Tags : {tag}</h1>
+
+    <div class="mt-6">
+        {
+            filteredPosts.map((tag, index) => (
+                <CardPost index={index} post={tag} />
+            ))
+        }
+    </div>
+</MainLayout>
