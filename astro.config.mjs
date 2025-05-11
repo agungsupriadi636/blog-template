@@ -14,6 +14,9 @@ export default defineConfig({
   },
   integrations: [mdx(), sitemap(), icon()],
   markdown: {
+    shikiConfig: {
+      theme: 'dracula',
+    },
     // Applied to .md and .mdx files
     remarkPlugins: [remarkReadingTime, [remarkToc, { heading: 'toc', maxDepth: 3 }]],
   },

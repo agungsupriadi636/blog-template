@@ -1,24 +1,56 @@
 ---
 import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { blogList, MainLayout } from "@utils/index";
 import CardPost from "@components/CardPost.astro";
+import Pagination from "@components/Pagination.astro";
 import WidgetComponent from "@components/WidgetComponent.astro";
+
+interface Props {
+	page: {
+		data: any[];
+		currentPage: number;
+		/** number of items per page (default: 10) */
+		size: number;
+		/** number of last page */
+		lastPage: number;
+		url: {
+			first: string;
+			prev: string;
+			next: string;
+			last: string;
+		};
+	};
+}
+
+export async function getStaticPaths({ paginate }) {
+	// Load your data with fetch(), getCollection(), etc.
+	const blogs = await getCollection("blog");
+
+	// Return a paginated collection of paths for all items
+	return paginate(blogs, { pageSize: 2 });
+}
+
+const { page } = Astro.props;
 ---
 
 <MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-	{
-		blogList
-			.slice(0, 4)
-			.map((post, index) => <CardPost index={index} post={post} />)
-	}
+	{page.data.map((post, index) => <CardPost index={index} post={post} />)}
 
+	<Pagination
+		currentPage={page.currentPage}
+		totalPages={page.lastPage}
+		prevUrl={page.url.prev}
+		nextUrl={page.url.next}
+		baseUrl="/blog"
+	/>
 	<!-- after main component -->
 	<div slot="after-main" class="mt-8">
 		<WidgetComponent title="Post Populer">
 			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
 				{
-					blogList.map((post) => (
+					blogList.slice(0, 4).map((post) => (
 						<article class="block">
 							<a
 								href={post.data.title}

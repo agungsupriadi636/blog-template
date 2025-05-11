@@ -1,0 +1,196 @@
+---
+// src/components/Pagination.astro
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    currentPage: number;
+    totalPages: number;
+    prevUrl?: string;
+    nextUrl?: string;
+    baseUrl: string; // URL dasar tanpa nomor halaman (misal '/blog' atau '/blog/')
+}
+
+const {
+    currentPage,
+    totalPages,
+    prevUrl,
+    nextUrl,
+    baseUrl = "/",
+} = Astro.props;
+
+const maxVisiblePages = 5;
+
+// Hitung range halaman yang ditampilkan
+let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+if (endPage - startPage + 1 < maxVisiblePages) {
+    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+}
+---
+
+<nav
+    class="md:flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 mt-12 hidden"
+>
+    <!-- Tombol Previous -->
+    <div class="-mt-px flex w-0 flex-1">
+        {
+            prevUrl && (
+                <a
+                    href={prevUrl}
+                    class="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                >
+                    <svg
+                        class="mr-3 h-5 w-5 text-gray-400"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z"
+                            clip-rule="evenodd"
+                        />
+                    </svg>
+                    Previous
+                </a>
+            )
+        }
+    </div>
+
+    <!-- Nomor Halaman (Desktop) -->
+    <div class="hidden md:-mt-px md:flex">
+        <!-- Halaman Pertama -->
+        {
+            startPage > 1 && (
+                <>
+                    <a
+                        href={baseUrl}
+                        class={`inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium ${1 === currentPage ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"}`}
+                    >
+                        1
+                    </a>
+                    {startPage > 2 && (
+                        <span class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500">
+                            ...
+                        </span>
+                    )}
+                </>
+            )
+        }
+
+        <!-- Range Halaman -->
+        {
+            Array.from({ length: endPage - startPage + 1 }, (_, i) => {
+                const pageNum = startPage + i;
+                const href = pageNum === 1 ? baseUrl : `${baseUrl}${pageNum}`;
+                return (
+                    <a
+                        href={href}
+                        class={`inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium ${pageNum === currentPage ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"}`}
+                    >
+                        {pageNum}
+                    </a>
+                );
+            })
+        }
+
+        <!-- Halaman Terakhir -->
+        {
+            endPage < totalPages && (
+                <>
+                    {endPage < totalPages - 1 && (
+                        <span class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500">
+                            ...
+                        </span>
+                    )}
+                    <a
+                        href={`${baseUrl}${totalPages}`}
+                        class={`inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium ${totalPages === currentPage ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"}`}
+                    >
+                        {totalPages}
+                    </a>
+                </>
+            )
+        }
+    </div>
+
+    <!-- Tombol Next -->
+    <div class="-mt-px flex w-0 flex-1 justify-end">
+        {
+            nextUrl && (
+                <a
+                    href={nextUrl}
+                    class="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                >
+                    Next
+                    <svg
+                        class="ml-3 h-5 w-5 text-gray-400"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M2 10a.75.75 0 01.75-.75h12.59l-2.1-1.95a.75.75 0 111.02-1.1l3.5 3.25a.75.75 0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.1-1.95H2.75A.75.75 0 012 10z"
+                            clip-rule="evenodd"
+                        />
+                    </svg>
+                </a>
+            )
+        }
+    </div>
+</nav>
+
+<!-- Mobile Pagination -->
+<div
+    class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 mt-8 md:hidden"
+>
+    {
+        prevUrl && (
+            <a
+                href={prevUrl}
+                class="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            >
+                <svg
+                    class="mr-3 h-5 w-5 text-gray-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+                Previous
+            </a>
+        )
+    }
+    <span class="text-sm text-gray-500 px-4 pt-4">
+        Page {currentPage} of {totalPages}
+    </span>
+    {
+        nextUrl && (
+            <a
+                href={nextUrl}
+                class="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            >
+                Next
+                <svg
+                    class="ml-3 h-5 w-5 text-gray-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M2 10a.75.75 0 01.75-.75h12.59l-2.1-1.95a.75.75 0 111.02-1.1l3.5 3.25a.75.75 0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.1-1.95H2.75A.75.75 0 012 10z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+            </a>
+        )
+    }
+</div>
