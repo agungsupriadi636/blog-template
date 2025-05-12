@@ -11,6 +11,21 @@ export const navLinks = [
 	{ label: 'Contact', url: '/contact' },
 ]
 
+//nav link footer
+export const footerLinks = [
+	{ label: 'Privacy Police', url: '/privacy-police' },
+	{ label: 'Disclamer', url: '/disclamer' },
+	{ label: 'Contact', url: '/contact' },
+]
+
+//social media
+export const socialMedia = [
+	{ label: 'fb', url: 'https://github.com/Astronout' },
+	{ label: 'ig', url: 'https://www.instagram.com/Astronout/' },
+	{ label: 'in', url: 'https://github.com/Astronout' },
+	{ label: 'tw', url: 'https://github.com/Astronout' },
+]
+
 // author profile
 export const author = {
 	name: "Astronout",

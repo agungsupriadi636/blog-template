@@ -1,9 +1,36 @@
 ---
 const today = new Date();
-import { SITE_TITLE } from "../consts";
+import { SITE_TITLE, socialMedia, footerLinks } from "../consts";
+import { Icon } from "astro-icon/components";
 ---
 
 <footer class="dark:bg-neutral-800 dark:text-white h-fit mt-auto">
+	<div class="max-w-5xl px-6 lg:px-0 mx-auto py-8">
+		<div class="flex justify-between flex-wrap items-center">
+			{/*link bottom*/}
+			<div class="flex items-center">
+				{
+					socialMedia.map((sos) => (
+						<a
+							class="p-2 rounded-full hover:bg-neutral-100"
+							href={sos.url}
+						>
+							<Icon name={sos.label} />
+							<span class="sr-only">{sos.label}</span>
+						</a>
+					))
+				}
+			</div>
+
+			<nav class="flex items-center gap-4">
+				{
+					footerLinks.map((footer) => (
+						<a href={footer.url}>{footer.label}</a>
+					))
+				}
+			</nav>
+		</div>
+	</div>
 	<div class="max-w-5xl mx-auto px-6 lg:px-0 py-8">
 		<p class="text-center">
 			&copy; {today.getFullYear()}

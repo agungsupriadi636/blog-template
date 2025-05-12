@@ -1,13 +1,32 @@
 ---
 layout: "../layouts/PageLayout.astro"
 title: "About Us"
+description: Mengenal lebih dekat tim dan visi kami
 author: "astro"
 pubDate: "2025-05-09"
 ---
 
-orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam
+# Tentang Kami
 
- ## phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. 
+## Visi & Misi
 
-Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+**Visi**:  
+Menjadi solusi terdepan di industri [industri Anda] dengan inovasi dan pelayanan terbaik.
+
+**Misi**:
+1. Memberikan produk/layanan berkualitas tinggi
+2. Menciptakan pengalaman pelanggan yang luar biasa
+3. Berinovasi secara berkelanjutan
+4. Berkontribusi positif bagi masyarakat
+
+## Sejarah Kami
+
+Didirikan pada tahun [tahun berdiri], [Nama Perusahaan] dimulai dari [cerita singkat pendirian]. 
+
+Perjalanan kami:
+- **20XX**: Awal berdiri dengan [jumlah] staf
+- **20XX**: Meluncurkan produk pertama
+- **20XX**: Ekspansi ke [area/layanan baru]
+- **20XX**: Mencapai [prestasi penting]
+
+Kini kami telah melayani [jumlah] pelanggan dengan bangga.

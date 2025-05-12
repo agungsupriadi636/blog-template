@@ -29,13 +29,36 @@ export async function getStaticPaths({ paginate }) {
 	const blogs = await getCollection("blog");
 
 	// Return a paginated collection of paths for all items
-	return paginate(blogs, { pageSize: 2 });
+	return paginate(blogs, { pageSize: 3 });
 }
 
 const { page } = Astro.props;
 ---
 
 <MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<div
+		slot="before-main"
+		class="overflow-hidden w-full p-2 bg-neutral-100 dark:bg-neutral-900 rounded-md mb-6"
+	>
+		<div class="marquee-container">
+			<ul class="marquee-content">
+				{
+					blogList.slice(0, 4).map((post) => (
+						<li class="inline-block mx-8 text-sm font-semibold">
+							<span>&diams;</span>
+							<a
+								href={`/blog/${post.data.title}`}
+								class="hover:underline"
+							>
+								{post.data.title}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</div>
+
 	{page.data.map((post, index) => <CardPost index={index} post={post} />)}
 
 	<Pagination
@@ -43,7 +66,7 @@ const { page } = Astro.props;
 		totalPages={page.lastPage}
 		prevUrl={page.url.prev}
 		nextUrl={page.url.next}
-		baseUrl="/blog"
+		baseUrl="/"
 	/>
 	<!-- after main component -->
 	<div slot="after-main" class="mt-8">

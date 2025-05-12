@@ -6,7 +6,6 @@ import BaseHead from "@components/BaseHead.astro";
 import WidgetComponent from "@components/WidgetComponent.astro";
 import "../styles/global.css";
 const { title, description } = Astro.props;
-
 const posts = await getCollection("blog");
 ---
 
@@ -22,29 +21,8 @@ const posts = await getCollection("blog");
 	>
 		<Header />
 		<main class="h-auto max-w-5xl mx-auto px-6 lg:px-0 pt-6 pb-12">
-			{
-				Astro.url.pathname === "/" ? (
-					<div class="overflow-hidden w-full p-2 bg-neutral-100 dark:bg-neutral-900 rounded-md mb-6">
-						<div class="marquee-container">
-							<ul class="marquee-content">
-								{posts.slice(0, 4).map((post) => (
-									<li class="inline-block mx-8 text-sm font-semibold">
-										<span>&diams;</span>
-										<a
-											href={`/blog/${post.data.title}`}
-											class="hover:underline"
-										>
-											{post.data.title}
-										</a>
-									</li>
-								))}
-							</ul>
-						</div>
-					</div>
-				) : (
-					""
-				)
-			}
+			<slot name="before-main" />
+
 			<div class="flex flex-col gap-8 md:flex-row">
 				<div class="md:basis-2/3 flex-1 space-y-8 overflow-x-hidden">
 					<slot />

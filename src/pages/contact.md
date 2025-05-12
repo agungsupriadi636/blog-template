@@ -1,13 +1,57 @@
 ---
 layout: "../layouts/PageLayout.astro"
 title: "Contact Us"
+description: Halaman kontak untuk menghubungi tim kami
 author: "astro"
 pubDate: "2025-05-09"
+
 ---
 
-orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam
+# Hubungi Kami
 
- ## phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. 
+Kami senang mendengar dari Anda! Silakan gunakan salah satu metode di bawah ini untuk menghubungi tim kami.
 
-Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+## Informasi Kontak
+
+📧 **Email**: [hello@contoh.com](mailto:hello@contoh.com)  
+📞 **Telepon**: [+62 123 4567 890](tel:+621234567890)  
+🏢 **Alamat Kantor**:  
+Jalan Contoh No. 123  
+Kota Contoh, 12345  
+Indonesia
+
+## Jam Operasional
+
+🕒 **Senin-Jumat**: 09.00 - 17.00 WIB  
+🕒 **Sabtu**: 09.00 - 14.00 WIB  
+🔴 **Minggu & Hari Libur**: Tutup
+
+## Media Sosial
+
+[Twitter](https://twitter.com/contoh)  
+[Facebook](https://facebook.com/contoh)  
+[Instagram](https://instagram.com/contoh)  
+[LinkedIn](https://linkedin.com/company/contoh)
+
+## Lokasi Kantor
+
+<iframe 
+  width="100%" 
+  height="400" 
+  frameborder="0" 
+  scrolling="no" 
+  marginheight="0" 
+  marginwidth="0" 
+  src="https://maps.google.com/maps?q=contoh%20jakarta&t=&z=15&ie=UTF8&iwloc=&output=embed">
+</iframe>
+
+## FAQ
+
+❓ **Berapa lama waktu respon email?**  
+Biasanya kami membalas dalam 1-2 hari kerja.
+
+❓ **Apakah ada layanan 24 jam?**  
+Kami hanya menyediakan layanan darurat 24 jam untuk klien premium.
+
+❓ **Bagaimana cara menjadi mitra bisnis?**  
+Silakan kirim proposal ke [partnership@contoh.com](mailto:partnership@contoh.com)

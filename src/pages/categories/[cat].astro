@@ -25,6 +25,6 @@ const lisCat = blogList.filter(
 	</h1>
 
 	<div class="mt-6">
-		{lisCat.map((cat) => <CardPost post={cat} />)}
+		{lisCat.map((cat, index) => <CardPost index={index} post={cat} />)}
 	</div>
 </MainLayout>
