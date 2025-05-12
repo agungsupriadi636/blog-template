@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from '@astrojs/sitemap';
@@ -9,6 +9,14 @@ import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
+  experimental: {
+    fonts: [{
+      provider: fontProviders.google(),
+      name: "Inter",
+      cssVariable: "--font-family"
+    }
+    ]
+  },
   vite: {
     plugins: [tailwindcss()],
   },
