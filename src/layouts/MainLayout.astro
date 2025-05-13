@@ -11,14 +11,14 @@ const posts = await getCollection("blog");
 ---
 
 <!doctype html>
-<html lang="en" class="">
+<html lang="en" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<title>{title}</title>
 		<BaseHead title={title} description={description} />
 	</head>
 	<body
-		class="relative min-dvh bg-white text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 font-family"
+		class="relative min-dvh bg-neutral-100 text-neutral-600 dark:bg-neutral-900 dark:text-neutral-400 font-family"
 	>
 		<Header />
 		<SeacrhForm />
@@ -34,8 +34,10 @@ const posts = await getCollection("blog");
 					<WidgetComponent title="Post Terbaru">
 						{
 							posts.map((post) => (
-								<h3 class="text-sm font-semibold">
-									<a href={post.id}>{post.data.title}</a>
+								<h3 class="text-sm font-semibold hover:underline transition-all text-neutral-900 dark:text-neutral-100 hover:text-blue-700 hover:dark:text-blue-400">
+									<a href={`/blog/${post.data.title}`}>
+										{post.data.title}
+									</a>
 								</h3>
 							))
 						}
@@ -48,7 +50,7 @@ const posts = await getCollection("blog");
 								posts.map((post) => (
 									<a
 										href={`/categories/${post.data.categories}`}
-										class="text-sm py-1 px-3 rounded-sm bg-blue-700 text-white font-semibold"
+										class="text-sm py-1 px-3 rounded-sm bg-blue-700 hover:bg-blue-800 dark:bg-blue-400 dark:text-neutral-900 dark:hover:bg-blue-500 text-blue-50 dark:text-blue-900 font-semibold transition-all"
 									>
 										{post.data.categories}
 									</a>
@@ -65,5 +67,19 @@ const posts = await getCollection("blog");
 			<slot name="after-main" />
 		</main>
 		<Footer />
+		<script is:inline>
+			// search
+			const search = document.getElementById("button-search");
+			const searchContainer = document.getElementById("search");
+			const closeSearch = document.getElementById("close");
+
+			search.addEventListener("click", () => {
+				searchContainer.classList.remove("hidden");
+			});
+
+			closeSearch.addEventListener("click", () => {
+				searchContainer.classList.add("hidden");
+			});
+		</script>
 	</body>
 </html>

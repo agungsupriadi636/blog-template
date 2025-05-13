@@ -2,12 +2,14 @@
 import { Icon } from "astro-icon/components";
 ---
 
-<button
-    id="dark-mode"
-    class="fixed right-4 bottom-4 lg:static p-2 rounded-full bg-blue-700 text-white"
->
-    <Icon class="icon" name="moon" size={18} />
-</button>
+<div class="fixed right-6 bottom-16 z-[96] lg:static">
+    <button
+        id="dark-mode"
+        class="p-2 rounded-full bg-blue-700 text-blue-50 dark:text-blue-900 hover:bg-blue-800 transition-all dark:bg-blue-400 dark:hover:bg-blue-500 cursor-pointer"
+    >
+        <Icon class="icon" name="moon" size={18} />
+    </button>
+</div>
 
 <script is:inline>
     (function () {

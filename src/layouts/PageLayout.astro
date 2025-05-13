@@ -36,7 +36,11 @@ const shares = [
     <article>
         <header class="mb-4 space-y-4">
             <BreadCrumb title={frontmatter.title} />
-            <h1 class="text-3xl font-bold">{frontmatter.title}</h1>
+            <h1
+                class="text-3xl font-semibold text-neutral-900 dark:text-neutral-100"
+            >
+                {frontmatter.title}
+            </h1>
             <div class="flex gap-4 flex-wrap text-[14px]">
                 <span class="flex items-center gap-1"
                     ><Icon name="user" size={13} />{frontmatter.author}</span
@@ -61,9 +65,7 @@ const shares = [
                 >
             </div>
         </header>
-        <div
-            class="prose prose-p:text-neutral-700 dark:prose-p:text-neutral-300 prose-a:{utility}"
-        >
+        <div class="prose proses-neutral dark:prose-invert">
             <slot />
         </div>
     </article>
@@ -74,7 +76,7 @@ const shares = [
         <ul class="flex gap-2 items-center">
             {
                 shares.map((share) => (
-                    <li class=" p-2 rounded-full bg-blue-700 text-white hover:bg-blue-800 transition-all">
+                    <li class=" p-2 rounded-full bg-blue-700 text-blue-50 hover:bg-blue-800 dark:bg-blue-400 dark:text-blue-900 dark:hover:bg-blue-500 transition-all">
                         <a href={share.link} target="_blank">
                             <Icon name={share.sosmed} />
                             <span class="sr-only">{share.sosmed}</span>

@@ -38,7 +38,7 @@ const { page } = Astro.props;
 <MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
 	<div
 		slot="before-main"
-		class="overflow-hidden w-full p-2 bg-neutral-100 dark:bg-neutral-900 rounded-md mb-6"
+		class="overflow-hidden w-full p-2 bg-neutral-200 dark:bg-neutral-800 rounded-md mb-6"
 	>
 		<div class="marquee-container">
 			<ul class="marquee-content">
@@ -48,7 +48,7 @@ const { page } = Astro.props;
 							<span>&diams;</span>
 							<a
 								href={`/blog/${post.data.title}`}
-								class="hover:underline"
+								class="text-neutral-900 dark:text-neutral-100 hover:underline"
 							>
 								{post.data.title}
 							</a>

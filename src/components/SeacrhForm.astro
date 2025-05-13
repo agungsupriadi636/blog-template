@@ -1,22 +1,32 @@
 ---
-
+import { Icon } from "astro-icon/components";
 ---
 
-<div class="">
-    <form action="">
-        <div class="search-container">
-            <input
-                id="search-input"
-                type="text"
-                placeholder="Cari artikel..."
-                value=""
-                class="search-input"
-            />
+<div
+    id="search"
+    class="hidden fixed top-0 size-full z-[99] bg-neutral-100 dark:bg-neutral-900"
+>
+    <div class="max-w-5xl mx-auto px-6 lg:px-0 pt-6 pb-12">
+        <div class="flex justify-end">
+            <button class="inline-block" id="close"
+                ><Icon name="close" size={20} /></button
+            >
         </div>
-    </form>
+        <form>
+            <div class="search-container">
+                <input
+                    id="search-input"
+                    type="search"
+                    placeholder="Cari artikel..."
+                    value=""
+                    class="search-input border focus:outline-neutral-500 focus:border-neutral-500 transition-all duration-300"
+                />
+            </div>
+        </form>
 
-    <div id="results" class="space-y-2">
-        <!-- Hasil pencarian akan muncul di sini -->
+        <div id="results" class="space-y-4 p-4 overflow-y-auto h-[400px]">
+            <!-- Hasil pencarian akan muncul di sini -->
+        </div>
     </div>
 </div>
 
@@ -67,7 +77,8 @@
 
         results.forEach((post) => {
             const item = document.createElement("div");
-            item.className = "p-3 bg-white rounded shadow mb-2";
+            item.className =
+                "p-3 bg-neutral-100 dark:bg-neutral-800 rounded shadow mb-2";
 
             const title = post.data?.title || "Tanpa Judul";
             const categories = post.data?.categories || "-";
@@ -76,9 +87,11 @@
                 : "-";
 
             item.innerHTML = `
-      <h2 class="text-lg font-semibold"><a href="/blog/${title}">${title}</a></h2>
-      <p class="text-sm text-gray-600">Kategori: ${categories}</p>
-      <p class="text-sm text-gray-600">Tags: ${tags}</p>
+      <h2 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100"><a href="/blog/${title}">${title}</a></h2>
+      <div class="text-neutral-600 dark:text-neutral-400">
+        <p class="text-sm">Kategori: ${categories}</p>
+      <p class="text-sm">Tags: ${tags}</p>
+        </div>
     `;
 
             container.appendChild(item);

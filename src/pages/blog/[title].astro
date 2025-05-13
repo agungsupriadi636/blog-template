@@ -67,7 +67,11 @@ const shares = [
 				categories={post.data.categories}
 				title={post.data.title}
 			/>
-			<h1 class="text-3xl font-bold">{post.data.title}</h1>
+			<h1
+				class="text-3xl font-bold text-neutral-900 dark:text-neutral-100"
+			>
+				{post.data.title}
+			</h1>
 			<p>{post.data.description}</p>
 			<div class="flex gap-4 flex-wrap text-[14px]">
 				<span class="flex items-center gap-1"
@@ -101,9 +105,7 @@ const shares = [
 				</figcaption>
 			</figure>
 		</header>
-		<div
-			class="prose prose-p:text-neutral-700 dark:prose-p:text-neutral-300 prose-a:{utility}"
-		>
+		<div class="prose proses-neutral dark:prose-invert">
 			<Content />
 		</div>
 		<div class="flex gap-2 items-center mt-8">
@@ -112,7 +114,7 @@ const shares = [
 				{
 					post.data.tags?.map((tag) => (
 						<a
-							class="px-3 py-1 bg-gray-100 rounded-sm text-sm dark:bg-neutral-900 hover:bg-blue-700 hover:text-white transitio-all"
+							class="px-3 py-1 bg-neutral-400 text-neutral-900 hover:bg-neutral-500 rounded-sm text-sm dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-50 transitio-all"
 							href={`/tags/${tag}`}
 						>
 							# {tag}
@@ -129,7 +131,7 @@ const shares = [
 		<ul class="flex gap-2 items-center">
 			{
 				shares.map((share) => (
-					<li class=" p-2 rounded-full bg-blue-700 text-white hover:bg-blue-800 transition-all">
+					<li class=" p-2 rounded-full bg-blue-700 text-blue-50 hover:bg-blue-800 dark:bg-blue-400 dark:text-blue-900 dark:hover:bg-blue-500 transition-all">
 						<a href={share.link} target="_blank">
 							<Icon name={share.sosmed} />
 							<span class="sr-only">{share.sosmed}</span>
