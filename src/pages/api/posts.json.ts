@@ -1,27 +1,22 @@
-import type { APIRoutes } from "astro";
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content';
+import type { APIRoute } from 'astro';
 
-async function getPost(){
-  const blogList = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-  );
-  
-  return blogList.map((blog) => ({
-      slug: blog.slug,
-      title: blog.data.title,
-      description: blog.data.description,
-      date: blog.data.pubDate,
-  }));
-}
+// Handle GET request
+export const GET: APIRoute = async ({ request }) => {
 
+  const allPosts = await getCollection('blog')
 
-export const GET: APIRoutes = async ({}) => {
-  return new Response(
-    JSON.stringify(await getPost()), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      }
+  // Di endpoint API, filter sebelum mengirim response
+  // const filtered = allPosts.filter(post => 
+  //   post.data.title.toLowerCase()
+  //   post.data.tags.some(tag => tag.toLowerCase()
+  //   post.data.kategori.toLowerCase()
+  // );
+
+  return new Response(JSON.stringify(allPosts), {
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'public, max-age=3600' // Cache 1 jam
     }
-  )
-}
+  });
+};
